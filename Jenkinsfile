@@ -1,17 +1,15 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'maven:3-alpine' 
+            args '-v /root/.m2:/root/.m2' 
+        }
+    }
     stages {
-        stage('Build') {
+        stage('Build') { 
             steps {
-                sh 'echo "Hello world!"'
+                sh 'mvn -B -DskipTests clean package' 
             }
         }
-	stage('get clone'){
-            //check CODE
-	    steps {
-		echo 'Checkout==========.........' 
-		checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/yaos829/building-a-multibranch-pipeline-project.git']]])
-            } 
-    	}
     }
 }
