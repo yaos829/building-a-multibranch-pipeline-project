@@ -9,6 +9,8 @@ pipeline {
 		sh 'pwd'
 		sh 'rm -rf ../packages/*.jar'
 		sh 'cp target/*.jar ../packages/'
+		sh 'rm -rf *'
+		sh 'ls -l'
             }
         }
     }
